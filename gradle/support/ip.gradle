@@ -122,10 +122,12 @@ def Map<String, List<String>> getIpForModule(Project p) {
 	}
 	tree.each { file ->
 			String ip = getIp(p.projectDir, file)
-			assert ip != null : "No IP found for "+file.path+ " in module: "+p.projectDir
+			//assert ip != null : "No IP found for "+file.path+ " in module: "+p.projectDir
+		if (ip != null) {
 			String ipString = ip.replace(' ','_')
 			assert allowedIP.contains(ipString) : "Found non-allowed IP: "+ip+" for file "+file.path+" in module: "+p.projectDir
 			addToMap(map, ip, getRelativePath(p.projectDir, file))
+		}
 	} 
 	return map;
 }
